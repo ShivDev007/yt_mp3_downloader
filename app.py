@@ -33,4 +33,4 @@ def download():
 if __name__ == '__main__':
     if not os.path.exists('downloads'):
         os.makedirs('downloads')
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
