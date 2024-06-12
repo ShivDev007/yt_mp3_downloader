@@ -1,3 +1,93 @@
+/* body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #1e1e1e;
+    padding: 2em 3em;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: magic 1s ease-out;
+}
+
+.title {
+    font-weight: 700;
+    margin-bottom: 1em;
+    color: #e0e0e0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+select {
+    padding: 0.75em;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75em 1.5em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn i {
+    margin-right: 0.5em;
+}
+
+#thumbnail-container {
+    margin-top: 1em;
+}
+
+#thumbnail {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    margin-top: 1em;
+    color: red;
+} */
+
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #121212;
@@ -86,3 +176,4 @@ select {
     margin-top: 1em;
     color: red;
 }
+
