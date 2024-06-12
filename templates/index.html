@@ -33,7 +33,6 @@
 </html> -->
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,29 +41,38 @@
     <title>Media Downloader</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container magic animate__animated animate__fadeInUp">
-        <h1 class="title">Media Downloader</h1>
-        <form id="convert-form" action="/download" method="post">
-            <div class="input-group">
-                <input type="text" name="url" id="url" placeholder="Enter YouTube or Instagram URL" required>
-                <div id="quality-container">
-                    <select name="quality" id="quality" required>
-                        <option value="192">192 kbps</option>
-                        <option value="256">256 kbps</option>
-                        <option value="320">320 kbps</option>
-                    </select>
+    <div class="main-container">
+        <div class="content-container">
+            <h1 class="title">Media Downloader</h1>
+            <p class="description">Download your favorite videos and photos from YouTube and Instagram in high quality.</p>
+            <form id="convert-form" action="/download" method="post">
+                <div class="input-group">
+                    <div class="icon-group">
+                        <i class="fab fa-youtube youtube-icon"></i>
+                        <i class="fab fa-instagram instagram-icon"></i>
+                    </div>
+                    <input type="text" name="url" id="url" placeholder="Enter YouTube or Instagram URL" required>
+                    <div id="quality-container">
+                        <select name="quality" id="quality" required>
+                            <option value="192">192 kbps</option>
+                            <option value="256">256 kbps</option>
+                            <option value="320">320 kbps</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn"><i class="fas fa-download"></i> Download</button>
                 </div>
-                <button type="submit" class="btn"><i class="fas fa-download"></i> Convert</button>
-            </div>
-            <div id="thumbnail-container">
-                <img id="thumbnail" src="" alt="Video Thumbnail" class="hidden">
-            </div>
-        </form>
-        <div id="message"></div>
+                <div id="thumbnail-container">
+                    <img id="thumbnail" src="" alt="Video Thumbnail" class="hidden">
+                </div>
+            </form>
+            <div id="message"></div>
+            <footer>
+                <p>Developed by YourName. © 2024 Media Downloader. All rights reserved.</p>
+            </footer>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
