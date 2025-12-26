@@ -89,141 +89,122 @@ select {
 
 
 
+/* Custom styles for Bootstrap-based UI */
+
+:root {
+    --brand: #0d6efd;
+    /* Bootstrap primary */
+    --muted: #6c757d;
+    --card-radius: 14px;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #000000;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9eef8 100%);
+    color: #212529;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
 }
 
-.main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+.card {
+    border-radius: var(--card-radius);
 }
 
-.content-container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2em 3em;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
+.card .card-body {
+    padding: 1.5rem;
 }
 
-.title {
+h2.card-title {
     font-weight: 700;
-    margin-bottom: 0.5em;
-    color: #000000;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-bottom: 0.25rem;
 }
 
-.description {
-    margin-bottom: 1em;
-    color: #000000;
-    font-size: 1.1em;
+.text-muted {
+    color: var(--muted) !important;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.icon-group {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1em;
-}
-
+/* Icons */
 .youtube-icon {
     color: #ff0000;
-    font-size: 2em;
-    margin-right: 1em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .instagram-icon {
     color: #e1306c;
-    font-size: 2em;
-    margin-left: 1em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-input[type="text"], select {
-    width: 100%;
-    padding: 0.75em;
-    margin-bottom: 1em;
-    border: none;
-    border-radius: 10px;
-    font-size: 1em;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #000000;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+/* Thumbnail area */
+#thumbnail-container img {
+    max-height: 220px;
+    object-fit: cover;
 }
 
-select {
-    padding: 0.75em;
+/* Message/alerts */
+#message {
+    margin-top: 0.5rem;
 }
 
+/* Make input text clearer on mobile */
+.form-control,
+.form-select {
+    min-height: 45px;
+}
+
+/* Small screens adjustments */
+@media (max-width: 576px) {
+    .card {
+        margin: 0 0.5rem;
+    }
+
+    .card .card-body {
+        padding: 1rem;
+    }
+
+    .form-control {
+        font-size: 0.95rem;
+    }
+}
+
+/* Micro-interactions & animations */
 .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75em 1.5em;
-    background-color: rgba(0, 123, 255, 0.8);
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    transition: transform 150ms ease, box-shadow 150ms ease;
 }
 
 .btn:hover {
-    background-color: rgba(0, 86, 179, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(13, 110, 253, 0.12);
 }
 
-.btn i {
-    margin-right: 0.5em;
+.btn:active {
+    transform: scale(0.98);
 }
 
-#thumbnail-container {
-    margin-top: 1em;
+.btn-pop {
+    animation: subtlePop 260ms ease;
 }
 
-#thumbnail {
-    max-width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+#thumbnail-container img {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+    transition: opacity 350ms ease, transform 350ms ease;
 }
 
-.hidden {
-    display: none;
+#thumbnail-container.show img {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
-#message {
-    margin-top: 1em;
-    color: red;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-}
+/* small animation fallback */
+@keyframes subtlePop {
+    0% {
+        transform: scale(0.98);
+    }
 
-footer {
-    margin-top: 1em;
-    color: #cccccc;
-    font-size: 0.9em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    60% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
