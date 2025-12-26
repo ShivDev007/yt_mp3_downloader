@@ -39,6 +39,7 @@ from flask import Flask, request, send_file, render_template, redirect, url_for,
 import yt_dlp
 import instaloader
 import os
+import shutil
 
 app = Flask(__name__)
 
@@ -58,32 +59,59 @@ def download():
         return redirect(url_for('index'))
 
 def download_youtube(url, quality):
+    # Detect whether ffmpeg is available for mp3 conversion
+    ffmpeg_path = shutil.which('ffmpeg')
+
     ydl_opts = {
         'format': 'bestaudio/best',
-        'postprocessors': [{
+        'outtmpl': 'downloads/%(title)s.%(ext)s',
+        'noplaylist': True,
+    }
+
+    # Only add the ffmpeg postprocessor if ffmpeg is installed
+    if ffmpeg_path:
+        ydl_opts['postprocessors'] = [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
             'preferredquality': quality,
-        }],
-        'outtmpl': 'downloads/%(title)s.%(ext)s',
-    }
+        }]
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=True)
-            file_path = ydl.prepare_filename(info_dict).replace('.webm', '.mp3')
+            prepared = ydl.prepare_filename(info_dict)
+
+            # If conversion ran, the final file should be .mp3; otherwise keep original
+            if ffmpeg_path:
+                file_path = os.path.splitext(prepared)[0] + '.mp3'
+            else:
+                file_path = prepared
+
+            # If file not found, try common audio/video extensions as fallback
+            if not os.path.exists(file_path):
+                base = os.path.splitext(prepared)[0]
+                for ext in ('.webm', '.m4a', '.mp4', '.opus', '.mkv', '.flac', '.wav'):
+                    candidate = base + ext
+                    if os.path.exists(candidate):
+                        file_path = candidate
+                        break
 
             @after_this_request
             def remove_file(response):
                 try:
-                    os.remove(file_path)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
                 except Exception as error:
-                    app.logger.error("Error removing or closing downloaded file", error)
+                    app.logger.error("Error removing or closing downloaded file: %s", error)
                 return response
+
+            if not os.path.exists(file_path):
+                app.logger.error(f"Downloaded file not found: {file_path}")
+                return redirect(url_for('index'))
 
             return send_file(file_path, as_attachment=True)
     except Exception as e:
-        app.logger.error(f"Error during download: {e}")
+        app.logger.error("Error during download: %s", e, exc_info=True)
         return redirect(url_for('index'))
 
 def download_instagram(url):
